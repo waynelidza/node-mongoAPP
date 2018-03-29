@@ -18,6 +18,7 @@ const  UserSchema = new Schema({
     },
     cellphonenumber:{
         type:String,
+        unique:true,
         required:[true,'cellphone field is required']
     },
     password:{
