@@ -25,6 +25,10 @@ const  UserSchema = new Schema({
         type:String,
         required:[true,'password field is required']
     },
+    GCMID:{
+        type:String,
+        required:[false,'GCMID field is required']
+    },
     accountStatus:{
         type:String,
         required:[true,'acccountstatus field is required']
