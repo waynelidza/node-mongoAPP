@@ -105,12 +105,17 @@ router.get('/ivy/users',function (req,res,next) {
 
 });
 router.get('/ivy/gcm',function (req,res,next) {
-    console.log("regsiter");
-    Admin.find().then(function (gcms) {
+    var gcms = []
+    console.log("regsitered admins");
+    Admin.find({}).then(function (users) {
+     var usertables = [] = users;
+        usertables.forEach(function(table) {
 
+             gcms.push(table.gcmID);
+            console.log(gcms);
 
+    });
         res.status(200).send(gcms);
-
     }).catch(next);
 
 

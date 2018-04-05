@@ -24,12 +24,12 @@ var registrationTokens = [
 
 // Send a message to the device corresponding to the provided
 // registration token.
-admin.messaging().sendToDevice(registrationTokens, payload)
-    .then(function(response) {
-        // See the MessagingDevicesResponse reference documentation for
-        // the contents of response.
-        console.log('Successfully sent message:', response);
-    })
-    .catch(function(error) {
-        console.log('Error sending message:', error);
-    });
+// admin.messaging().sendToDevice(registrationTokens, payload)
+//     .then(function(response) {
+//         // See the MessagingDevicesResponse reference documentation for
+//         // the contents of response.
+//         console.log('Successfully sent message:', response);
+//     })
+//     .catch(function(error) {
+//         console.log('Error sending message:', error);
+//     });
