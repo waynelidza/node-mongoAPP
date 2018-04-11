@@ -6,30 +6,105 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
     databaseURL: "https://ivyveg-386ae.firebaseio.com"
 });
-
+ var gcm;
 // This registration token comes from the client FCM SDKs.
 
 var payload = {
     notification: {
-        title: 'Node JS server successfully started',
+        title: 'New Customer registered needs your approval to start buying',
         body: 'Admin'
     }
 };
 
 var registrationTokens = [
-    'eKcoez8JtmU:APA91bGntcjA4jXdU9ZZLgvnfYBekGRdnH7z8hhdZVHuqpmj89Kh2GQ40-Yjd5F7wrMXIkI3UhPYiyzZG0ZgaZGA4EuIyDwmIys7qTg29e62ffW8tH8AVsC_sDzC24-l0-VqnHw0koGA',
-    // ...
-    'ecupwIfBy1w:APA91bFtuMY7MktgxA3Au_Qx7cKqnf...'
+
 ];
 
-// Send a message to the device corresponding to the provided
-// registration token.
-// admin.messaging().sendToDevice(registrationTokens, payload)
-//     .then(function(response) {
-//         // See the MessagingDevicesResponse reference documentation for
-//         // the contents of response.
-//         console.log('Successfully sent message:', response);
-//     })
-//     .catch(function(error) {
-//         console.log('Error sending message:', error);
-//     });
+//Send a message to the device corresponding to the provided
+//registration token.
+
+ var sendmessages = function sendGcmMesage(registrationTokens) {
+
+    admin.messaging().sendToDevice(registrationTokens, payload)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log('Successfully sent message:', response);
+        })
+        .catch(function(error) {
+            console.log('Error sending message:', error);
+        });
+
+}
+var sendmessagesApproval = function sendGcmMesage(registrationTokens) {
+    var payloads = {
+        notification: {
+            title: 'New Customer registered needs your approval to start buying',
+            body: 'Admin'
+        }
+    };
+
+    admin.messaging().sendToDevice(registrationTokens, payloads)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log('Successfully sent message:', response);
+        })
+        .catch(function(error) {
+            console.log('Error sending message:', error);
+        });
+
+}
+var sendmessagesfodeviler = function sendGcmMesage(registrationTokens,data) {
+    var payloads = {
+        notification: {
+            title: 'A Customer has ordered please check it out',
+            body: 'Admin',
+
+
+        },
+        "data" : {
+            "Nick" : "Mario",
+            "Room" : "PortugalVSDenmark"
+        }
+    };
+
+    admin.messaging().sendToDevice(registrationTokens, payloads)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log('Successfully sent message:', response);
+        })
+        .catch(function(error) {
+            console.log('Error sending message:', error);
+        });
+
+}
+
+var sendmessagestoCustomer = function sendGcmMesage(GcmId) {
+     console.log('here send');
+    var payloads = {
+        notification: {
+            title: 'Your account has been approved u can start ordering',
+            body: 'Admin',
+            sound: 'default',
+            click_action:'FCM_PLUGIN_ACTIVITY',
+        }
+    };
+
+    admin.messaging().sendToDevice(GcmId, payloads)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log('Successfully sent message:', response);
+        })
+        .catch(function(error) {
+            console.log('Error sending message:', error);
+        });
+
+}
+module.exports = { registrationTokens: "registrationTokens" };
+module.exports.sendmessages = sendmessages;
+module.exports.sendmessagesApproval = sendmessages;
+module.exports.sendmessagestoCustomer = sendmessagestoCustomer;
+module.exports.sendmessagesfodeviler = sendmessagesfodeviler;
