@@ -1,13 +1,19 @@
 node() {
-    try {
-        def versionInput = "";
-        stage('CLI-version-check') {
-            echo '## version start--------------------------'
-           
-        }
-        stage('checkout') {
-            checkout scm
-        }
+ pipeline {
+     agent {
+         docker {
+             image 'node:6-alpine'
+             args '-p 3000:3000'
+         }
+     }
+     stages {
+         stage('Build') {
+             steps {
+                 sh 'npm install'
+             }
+         }
+     }
+ }
   
       
 }
