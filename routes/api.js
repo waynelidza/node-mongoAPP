@@ -50,7 +50,21 @@ router.post('/login',function (req,res) {
 
 });
 //post
+router.post('/myproducts',function (req,res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log(req.body.cellphonenumber);
+    Sells.findOne({
+        cellphonenumber: req.body.cellphonenumber
+    }, function(err, requests) {
 
+
+
+            res.status(401).send(requests);
+
+
+    })
+
+});
 router.post('/admin/login',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log('login');
