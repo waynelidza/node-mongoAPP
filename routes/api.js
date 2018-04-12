@@ -52,7 +52,7 @@ router.post('/login',function (req,res) {
 //post
 router.post('/myproducts',function (req,res) {
     res.header("Access-Control-Allow-Origin", "*");
-    Sells.findOne({
+    Sells.find({
         callphonenumbers: req.body.cellphonenumber
     }, function(err, requests) {
 
