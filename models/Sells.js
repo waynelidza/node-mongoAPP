@@ -28,6 +28,10 @@ const  sellsSchema = new Schema({
         type:String,
         required:[true,'status field is required']
     },
+    DatetimeOrder:{
+        type:String,
+        required:[true,'DateOrder field is required']
+    },
 });
 
 const sells = mongoose.model('sells',sellsSchema);
