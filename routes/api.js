@@ -59,7 +59,7 @@ router.post('/myproducts',function (req,res) {
 
 
 
-            res.status(401).send(requests);
+            res.send(requests);
 
 
     })
