@@ -67,7 +67,7 @@ router.post('/myproducts',function (req,res) {
 router.post('/findme',function (req,res) {
     res.header("Access-Control-Allow-Origin", "*");
     User.find({
-        callphonenumbers: req.body.cellphonenumber
+        cellphonenumber: req.body.cellphonenumber
     }, function(err, user) {
 
 
