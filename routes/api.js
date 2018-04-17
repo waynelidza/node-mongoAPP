@@ -64,6 +64,20 @@ router.post('/myproducts',function (req,res) {
     })
 
 });
+router.post('/findme',function (req,res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    User.find({
+        callphonenumbers: req.body.cellphonenumber
+    }, function(err, user) {
+
+
+
+        res.send(user);
+
+
+    })
+
+});
 router.post('/admin/login',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log('login');
@@ -218,7 +232,7 @@ router.post('/products',function (req,res,next) {
 // });
 //UPDATE
 router.put('/products/:id',function (req,res,next) {
-    console.log("products");
+
     User.findByIdAndUpdate({_id:req.params.id},req.body).then(function (user) {
         res.send('successfully updated');
 
@@ -226,8 +240,15 @@ router.put('/products/:id',function (req,res,next) {
     }).catch(next);
 });
 
-
 router.put('/users/:id',function (req,res,next) {
+    console.log("user upadate");
+    User.findByIdAndUpdate({_id:req.params.id},req.body).then(function (user) {
+        res.send('successfully updated');
+
+
+    }).catch(next);
+});
+router.put('/usersEdit/:id',function (req,res,next) {
     console.log("approver");
     User.findByIdAndUpdate({_id:req.params.id},req.body).then(function (user) {
         res.send('successfully activated');
