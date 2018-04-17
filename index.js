@@ -3,7 +3,7 @@ const bodyPaser = require('body-parser');
 const mongoose = require('mongoose');
 const app = express();
 const routes = require('./routes/api');
-
+const winston = require('wiston');
 app.use(bodyPaser.json());
 //init routes
 app.use(routes);
@@ -17,7 +17,18 @@ mongoose.Promise = global.Promise;
 app.use(function (err,req,res,next) {
     console.log('err');
 
-
+    const logger = winston.createLogger({
+        level: 'info',
+        format: winston.format.json(),
+        transports: [
+            //
+            // - Write to all logs with level `info` and below to `combined.log`
+            // - Write all logs error (and below) to `error.log`.
+            //
+            new winston.transports.File({ filename: 'error.log', level: 'error' }),
+            new winston.transports.File({ filename: 'combined.log' })
+        ]
+    });
 
     console.log(err.message);
     if(err.message.search('duplicate')){
@@ -29,7 +40,9 @@ app.use(function (err,req,res,next) {
 
 app.listen(process.env.port||3000,function () {
     console.log("now listening");
-
+    winston.add(new winston.transports.Console({
+        format: winston.format.simple()
+    }));
 });
 
 // app.use(function (req, res, next) {
