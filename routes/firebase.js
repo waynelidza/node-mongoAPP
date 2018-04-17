@@ -55,6 +55,25 @@ var sendmessagesApproval = function sendGcmMesage(registrationTokens) {
         });
 
 }
+var sendmessagesNews = function sendGcmMesage(registrationTokens) {
+    var payloads = {
+        notification: {
+            title: 'Checkout our new Promotions',
+            body: 'Admin'
+        }
+    };
+
+    admin.messaging().sendToDevice(registrationTokens, payloads)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log('Successfully sent message:', response);
+        })
+        .catch(function(error) {
+            console.log('Error sending message:', error);
+        });
+
+}
 var sendmessagesfodeviler = function sendGcmMesage(registrationTokens,data) {
     var payloads = {
         notification: {
@@ -108,3 +127,4 @@ module.exports.sendmessages = sendmessages;
 module.exports.sendmessagesApproval = sendmessages;
 module.exports.sendmessagestoCustomer = sendmessagestoCustomer;
 module.exports.sendmessagesfodeviler = sendmessagesfodeviler;
+module.exports.sendmessagesNews = sendmessagesNews;

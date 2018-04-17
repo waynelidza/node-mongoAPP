@@ -9,6 +9,7 @@ const fireBase = require('./firebase');
 var firebaseGcm = require("./firebase");
 const Products= require('../models/Product');
 const Sells= require('../models/Sells');
+const News= require('../models/news');
 //get list of users
 router.post('/login',function (req,res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -67,12 +68,12 @@ router.post('/myproducts',function (req,res) {
 router.post('/findme',function (req,res) {
     res.header("Access-Control-Allow-Origin", "*");
     User.find({
-        cellphonenumber: req.body.cellphonenumber
+        callphonenumbers: req.body.cellphonenumber
     }, function(err, user) {
 
 
 
-        res.send(user);
+        res.send(users);
 
 
     })
@@ -126,6 +127,16 @@ router.post('/register',function (req,res,next) {
 
        res.status(201).send({message:'Succesfully registered please  wait for the admin to approve your account'});
    }).catch(next);
+
+});
+router.post('/news',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log("regsiter");
+    News.create(req.body).then(function (users) {
+
+
+        res.status(201).send({message:'Succesfully sent to the customers'});
+    }).catch(next);
 
 });
 
@@ -302,6 +313,26 @@ router.all('/', function(req, res, next) {
         }).catch(next);
 
     });
+router.get('/news',function (req,res,next) {
+    var gcms = []
+    console.log("notify admins");
+    User.find({}).then(function (users) {
+        var usertables = [] = users;
+        usertables.forEach(function (table) {
+
+            gcms.push(table.gcmID);
+
+
+        });
+        res.status(200).send("message sent to the admin");
+
+        fireBase.registrationTokens = gcms;
+
+        fireBase.sendmessagesNews(fireBase.registrationTokens)
+
+    }).catch(next);
+
+});
 router.get('/order/gcm',function (req,res,next) {
     var gcms = []
     console.log("notify admins");
