@@ -16,8 +16,7 @@ mongoose.Promise = global.Promise;
 
 //error handling
 app.use(function (err,req,res,next) {
-    console.log('err');
-    winston.add(winston.transports.File, { filename: 'somefile.log' });
+
 
 
     console.log(err.message);

@@ -9,6 +9,7 @@ const fireBase = require('./firebase');
 var firebaseGcm = require("./firebase");
 const Products= require('../models/Product');
 const Sells= require('../models/Sells');
+const Complaints = require('../models/Complaints');
 const News= require('../models/news');
 //get list of users
 router.post('/login',function (req,res) {
@@ -65,6 +66,9 @@ router.post('/myproducts',function (req,res) {
     })
 
 });
+
+
+
 router.post('/findme',function (req,res) {
     res.header("Access-Control-Allow-Origin", "*");
     User.find({
@@ -79,6 +83,28 @@ router.post('/findme',function (req,res) {
     })
 
 });
+
+
+router.post('/cp',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log("cp");
+    Complaints.create(req.body).then(function (cp) {
+
+
+        res.status(201).send({message:'Succesfully sent to Admin'});
+    }).catch(next);
+
+});
+router.get('/cp',function (req,res,next) {
+
+    Complaints.find({}).then(function (cp) {
+
+        res.status(200).send(cp);
+
+
+    }).catch(next);
+});
+
 router.post('/admin/login',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log('login');
@@ -328,7 +354,7 @@ router.get('/news',function (req,res,next) {
 
         fireBase.registrationTokens = gcms;
 
-        fireBase.sendmessagesNews(fireBase.registrationTokens)
+        fireBase.sendmessages(fireBase.registrationTokens)
 
     }).catch(next);
 
