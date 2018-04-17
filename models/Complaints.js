@@ -15,5 +15,13 @@ const  ComplaintsSchema = new Schema({
         type:String,
         required:[true,'Sender field is required']
     },
+    Reply:{
+        type:String,
+        required:[false,'Sender field is required']
+    },
+    Status:{
+        type:String,
+        required:[true,'Status field is required']
+    },
 });const Complaints = mongoose.model('Complaints ',ComplaintsSchema);
 module.exports=Complaints;
