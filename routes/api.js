@@ -220,15 +220,17 @@ router.get('/sellsALL',function (req,res,next) {
 });
 router.get('/ivy/users',function (req,res,next) {
     console.log("regsiter");
-    User.find().then(function (users) {
 
+    User.find({
+        accountStatus: '0'
+    }, function(err, requests) {
 
-        res.status(200).send(users);
+        console.log(request);
+
+        res.send(requests);
 
 
     }).catch(next);
-
-
 });
 
 
