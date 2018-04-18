@@ -161,7 +161,7 @@ router.post('/register',function (req,res,next) {
 });
 router.post('/news',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
-    console.log("regsiter");
+    console.log("news");
     News.create(req.body).then(function (users) {
 
 
@@ -169,7 +169,16 @@ router.post('/news',function (req,res,next) {
     }).catch(next);
 
 });
+router.post('/adminNews',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log("news");
+    News.find(req.body).then(function (news) {
 
+
+        res.status(201).send(news);
+    }).catch(next);
+
+});
 
 router.post('/sell',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
