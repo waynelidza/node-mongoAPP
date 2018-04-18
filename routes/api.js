@@ -169,7 +169,7 @@ router.post('/news',function (req,res,next) {
     }).catch(next);
 
 });
-router.post('/adminNews',function (req,res,next) {
+router.get('/adminNews',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log("news");
     News.find(req.body).then(function (news) {
