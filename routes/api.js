@@ -181,6 +181,43 @@ router.post('/sell',function (req,res,next) {
     }).catch(next);
 
 });
+
+
+router.get('/sell',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log("sellls get ");
+
+    Sells.find({
+        status: '0'
+    }, function(err, requests) {
+
+        console.log(request);
+
+        res.send(requests);
+
+
+    }).catch(next);
+
+});
+
+
+
+router.get('/sellsALL',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log("sellls get ");
+
+    Sells.find({
+
+    }, function(err, requests) {
+
+        console.log(request);
+
+        res.send(requests);
+
+
+    }).catch(next);
+
+});
 router.get('/ivy/users',function (req,res,next) {
     console.log("regsiter");
     User.find().then(function (users) {
