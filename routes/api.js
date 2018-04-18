@@ -101,7 +101,7 @@ router.post('/cps',function (req,res,next) {
         Sender: req.body.Sender
     }, function(err, requests) {
 
-
+        console.log(request);
 
         res.send(requests);
 
