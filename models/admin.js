@@ -19,7 +19,7 @@ const  AdminSchema = new Schema({
 
     gcmID:{
         type:String,
-        required:[true,'gcmID field is required']
+        required:[false,'gcmID field is required']
     }
 
 });
