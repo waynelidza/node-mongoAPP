@@ -95,14 +95,17 @@ router.post('/cp',function (req,res,next) {
     }).catch(next);
 
 });
-router.get('/cp',function (req,res,next) {
+router.post('/cps',function (req,res,next) {
+    Complaints({
+        Sender: req.body.username
+    }, function(err, requests) {
 
-    Complaints.find({}).then(function (cp) {
-
-        res.status(200).send(cp);
 
 
-    }).catch(next);
+        res.send(requests);
+
+
+    })
 });
 
 router.post('/admin/login',function (req,res,next) {
