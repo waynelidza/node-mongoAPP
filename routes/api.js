@@ -180,6 +180,19 @@ router.get('/adminNews',function (req,res,next) {
 
 });
 
+router.post('/newsDelete',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    News.findByIdAndRemove({
+        _id: req.body._id
+    }, function(err, requests) {
+
+
+
+        res.status(200).send({message:'Succesfully deleted'});
+    })
+
+});
+
 router.post('/sell',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log("regsiter sellls");
