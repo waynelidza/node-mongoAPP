@@ -98,7 +98,7 @@ router.post('/cp',function (req,res,next) {
 router.post('/cps',function (req,res,next) {
     console.log("cp");
     Complaints({
-        Sender: req.body.username
+        Sender: req.body.Sender
     }, function(err, requests) {
 
 
