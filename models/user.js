@@ -29,7 +29,7 @@ const  UserSchema = new Schema({
     },
     GCMID:{
         type:String,
-        required:[true,'GCMID field is required']
+        required:[false,'GCMID field is required']
     },
     accountStatus:{
         type:String,
