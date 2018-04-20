@@ -104,10 +104,8 @@ var sendmessagestoCustomer = function sendGcmMesage(GcmId) {
      console.log('here send');
     var payloads = {
         notification: {
-            title: 'Your account has been approved u can start ordering',
-            body: 'Admin',
-            sound: 'default',
-            click_action:'FCM_PLUGIN_ACTIVITY',
+            title: 'Your Account has been approved ',
+            body: 'Admin'
         }
     };
 
