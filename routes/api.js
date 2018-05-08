@@ -22,7 +22,7 @@ router.post('/Upload', upload.any(), function(req, res, next) {
 
     var filename =req.files[0].filename;
 
-var imageUrl='http://ec2-34-240-133-21.eu-west-1.compute.amazonaws.com:3000/Upload/'+filename;
+var imageUrl='http://ec2-34-240-133-21.eu-west-1.compute.amazonaws.com:3000/uploads/'+filename;
 
 
 
