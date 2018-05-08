@@ -2,6 +2,7 @@
   "name": "",
   "version": "",
   "dependencies": {
+    "aws-sdk": "^2.232.1",
     "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.3",
@@ -12,6 +13,7 @@
     "jsonwebtoken": "^8.2.0",
     "mongoose": "^5.0.10",
     "morgan": "^1.9.0",
+    "multer": "^1.2.0",
     "node-gcm": "^0.14.10",
     "request": "^2.81.0",
     "winston": "^3.0.0-rc4"

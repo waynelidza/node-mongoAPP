@@ -5,6 +5,11 @@ const app = express();
 const routes = require('./routes/api');
 var winston = require('winston');
 expressWinston = require('express-winston');
+
+
+var multer = require('multer');
+var bodyParser = require('body-parser');
+
 app.use(bodyPaser.json());
 //init routes
 app.use(routes);

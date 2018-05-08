@@ -11,6 +11,25 @@ const Products= require('../models/Product');
 const Sells= require('../models/Sells');
 const Complaints = require('../models/Complaints');
 const News= require('../models/news');
+var multer = require('multer');
+var bodyParser = require('body-parser');
+var upload = multer({ dest: '/opt/lampp/htdocs/uploads/' });
+var path;
+router.use(bodyParser.json());
+
+router.post('/Upload', upload.any(), function(req, res, next) {
+
+
+    var filename =req.files[0].filename;
+
+var imageUrl='http://22.247.15.115/uploads/'+filename;
+
+
+
+    res.status(200).send(imageUrl);
+
+
+});
 //get list of users
 router.post('/login',function (req,res) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -165,7 +184,7 @@ router.post('/news',function (req,res,next) {
     News.create(req.body).then(function (users) {
 
 
-        res.status(201).send({message:'Succesfully sent to the customers'});
+        res.status(201).send({message:'sent'});
     }).catch(next);
 
 });
@@ -179,7 +198,30 @@ router.get('/adminNews',function (req,res,next) {
     }).catch(next);
 
 });
+router.post('/report',function (req,res,next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    console.log(req.body.name);
+        var useranme = req.body.name;
+    var gcms = []
+    console.log("notify admins");
+    Admin.find({}).then(function (users) {
+        var usertables = [] = users;
+        usertables.forEach(function (table) {
 
+            gcms.push(table.gcmID);
+
+
+        });
+
+
+        fireBase.registrationTokens = gcms;
+
+
+        fireBase.sendmessagesCollect(fireBase.registrationTokens,useranme);
+        res.status(200).send("message sent to the admin");
+    }).catch(next);
+
+});
 router.post('/newsDelete',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     News.findByIdAndRemove({
@@ -269,6 +311,25 @@ router.get('/products',function (req,res,next) {
 
 
 });
+
+
+
+router.post('/products',function (req,res,next) {
+    console.log("producTS DELEE");
+    Products.findByIdAndRemove({
+        _id: req.body._id
+    }, function(err, requests) {
+
+
+
+        res.status(200).send({message:' deleted'});
+
+
+
+    }).catch(next);
+
+
+});
 // router.get('/ivy/gcm',function (req,res,next) {
 //     var gcms = []
 //     console.log("regsitered admins");
@@ -289,32 +350,27 @@ router.get('/products',function (req,res,next) {
 //
 // });
 
-router.post('/admin',function (req,res,next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    console.log("post admin");
-    Admin.create(req.body).then(function (Admin) {
-        res.send('Succesfully created');
-    }).catch(next);
-
-
-});
-
 
 router.post('/admin',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log("post admin");
     Admin.create(req.body).then(function (Admin) {
-        res.send('Succesfully created');
+
+        res.status(201).send({message:'created'});
+
+
     }).catch(next);
 
 
 });
 
-router.post('/products',function (req,res,next) {
+router.post('/product',function (req,res,next) {
     res.header("Access-Control-Allow-Origin", "*");
     console.log("post admin");
+
+
     Products.create(req.body).then(function (Admin) {
-        res.send('Succesfully created');
+        res.status(201).send({message:'created'});
     }).catch(next);
 
 
@@ -353,7 +409,7 @@ router.put('/users/:id',function (req,res,next) {
 router.put('/usersEdit/:id',function (req,res,next) {
     console.log("approver");
     User.findByIdAndUpdate({_id:req.params.id},req.body).then(function (user) {
-        res.send('successfully activated');
+        res.status(201).send({message:'activated'});
         fireBase.sendmessagestoCustomer(user.GCMID);
 
     }).catch(next);
@@ -375,8 +431,20 @@ router.delete('/users/:id',function (req,res,next) {
 
 
 }).catch(next);
+});
+
+    router.post('/product/:id',function (req,res,next) {
+        console.log("delete");
+        Products.findByIdAndRemove({_id:req.params.id}).then(function (users) {
+
+            res.send({message:'deleted'});
+
+        }).catch(next);
+
+
 
 });
+
 router.all('/', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     // res.header("Access-Control-Allow-Headers", "X-Requested-With");
@@ -404,22 +472,22 @@ router.all('/', function(req, res, next) {
         }).catch(next);
 
     });
-router.get('/news',function (req,res,next) {
+router.post('/prodcast',function (req,res,next) {
     var gcms = []
     console.log("notify admins");
     User.find({}).then(function (users) {
         var usertables = [] = users;
         usertables.forEach(function (table) {
 
-            gcms.push(table.gcmID);
+            gcms.push(table.GCMID);
 
 
         });
-        res.status(200).send("message sent to the admin");
+        res.status(200).send(gcms);
 
         fireBase.registrationTokens = gcms;
 
-        fireBase.sendmessages(fireBase.registrationTokens)
+        fireBase.sendmessagesNews(fireBase.registrationTokens,req.body.message)
 
     }).catch(next);
 

@@ -55,10 +55,10 @@ var sendmessagesApproval = function sendGcmMesage(registrationTokens) {
         });
 
 }
-var sendmessagesNews = function sendGcmMesage(registrationTokens) {
+var sendmessagesNews = function sendGcmMesage(registrationTokens,message) {
     var payloads = {
         notification: {
-            title: 'Checkout our new Promotions',
+            title: message,
             body: 'Admin'
         }
     };
@@ -99,7 +99,31 @@ var sendmessagesfodeviler = function sendGcmMesage(registrationTokens,data) {
         });
 
 }
+var sendmessagesCollect = function sendGcmMesage(registrationTokens,useranme) {
+    var payloads = {
+        notification: {
+            title: useranme+'\xa0\xa0\xa0\xa0\xa0\xa0\xa0'+'requested for money collection  please arrange the meetup',
+            body: 'Admin',
 
+
+        },
+        "data" : {
+            "Nick" : "Mario",
+            "Room" : "PortugalVSDenmark"
+        }
+    };
+
+    admin.messaging().sendToDevice(registrationTokens, payloads)
+        .then(function(response) {
+            // See the MessagingDevicesResponse reference documentation for
+            // the contents of response.
+            console.log('Successfully sent message:', response);
+        })
+        .catch(function(error) {
+            console.log('Error sending message:', error);
+        });
+
+}
 var sendmessagestoCustomer = function sendGcmMesage(GcmId) {
      console.log('here send');
     var payloads = {
@@ -126,3 +150,4 @@ module.exports.sendmessagesApproval = sendmessages;
 module.exports.sendmessagestoCustomer = sendmessagestoCustomer;
 module.exports.sendmessagesfodeviler = sendmessagesfodeviler;
 module.exports.sendmessagesNews = sendmessagesNews;
+module.exports.sendmessagesCollect = sendmessagesCollect;
